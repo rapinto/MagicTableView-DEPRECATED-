@@ -58,7 +58,7 @@ typedef enum {
 - (void)prepareRequestSending;
 
 - (void)requestFinish;
-- (void)resetSearch;
+- (void)resetList;
 
 - (void)didReceiveResults:(NSMutableArray*)_ReceivedResults;
 - (void)didReceiveError;
