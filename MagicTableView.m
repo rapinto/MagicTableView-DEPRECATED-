@@ -138,7 +138,7 @@
 - (void)updateEmptyStateView
 {
     
-    if ([self isTableViewEmpty])
+    if ([self isTableViewEmpty] && [self.mMagicTableViewDataSource loadingMagicTableView:self] == 1 /*(kMagicTableViewLoadingType_Init)*/)
     {
         self.mEmptyStateView = [self.mMagicTableViewDelegate MagicTableViewEmptyStateView:self];
         
