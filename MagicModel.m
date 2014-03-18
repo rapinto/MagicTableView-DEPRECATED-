@@ -211,7 +211,7 @@
 }
 
 
-- (void)resetSearch
+- (void)resetList
 {
     self.mLoadingType = kMagicTableViewLoadingType_Init;
     [self prepareRequestSending];
