@@ -69,4 +69,6 @@ typedef enum {
 - (void)sendRequest;
 - (void)loadLocalResults;
 
+- (void)updatePagingEngine:(NSMutableArray*)_ReceivedResults;
+
 @end
