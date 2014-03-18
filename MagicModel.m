@@ -247,6 +247,12 @@
 }
 
 
+- (int)loadingMagicTableView:(MagicTableView*)_MagicTableView
+{
+    return self.mLoadingType;
+}
+
+
 - (void)magicTableViewDidTriggerPaging:(MagicTableView*)_MagicTableView
 {
     [self paging];
