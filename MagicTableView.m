@@ -61,6 +61,23 @@
 
 
 #pragma mark -
+#pragma mark Overrided Methods
+
+
+
+- (void)reloadData
+{
+    [super reloadData];
+    
+    if (![mMagicTableViewDataSource isLoadingMagicTableView:self])
+    {
+        [self updateEmptyStateView];
+    }
+}
+
+
+
+#pragma mark -
 #pragma mark Data Management Methods
 
 
