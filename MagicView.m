@@ -68,6 +68,7 @@
     [mPullToRefreshView release];
     [mModel release];
     [mTableView release];
+    [mLoadingView release];
     [super dealloc];
 }
 
