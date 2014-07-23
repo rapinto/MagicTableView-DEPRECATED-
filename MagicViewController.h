@@ -27,6 +27,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MagicTableViewDelegate.h"
+#import "DealabsViewController.h"
 
 
 
@@ -34,7 +35,7 @@
 
 
 
-@interface MagicViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MagicTableViewDelegate>
+@interface MagicViewController : DealabsViewController <UITableViewDelegate, UITableViewDataSource, MagicTableViewDelegate>
 
 @property (nonatomic, retain) IBOutlet MagicTableView* mTableView;
 @property (nonatomic, retain) UIView* mPagingTableFooterView;

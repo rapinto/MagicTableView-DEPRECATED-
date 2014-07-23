@@ -200,6 +200,7 @@
     if (self.mPagingFooterView)
     {
         [self.mPagingFooterView stopLoadingForMagicTableView:self];
+        self.tableFooterView = nil;
     }
 }
 

@@ -49,6 +49,8 @@ typedef enum {
 @property (nonatomic, retain) NSMutableArray *mResults;
 @property ( nonatomic) MagicTableViewLoadingType mLoadingType;
 @property (nonatomic) BOOL mIsLoading;
+@property (nonatomic) BOOL mIsPagingDisabled;
+@property (nonatomic) BOOL mIsPagingEnded;
 @property (nonatomic) int mRequestCallDeltaTime;
 @property (nonatomic, retain) NSString* mRequestKey;
 @property (nonatomic, retain) NSObject <MagicModelDelegate>* mMagicModelDelegate;
@@ -68,6 +70,7 @@ typedef enum {
 - (void)sortResults;
 - (void)sendRequest;
 - (void)loadLocalResults;
+- (void)paging;
 
 - (void)updatePagingEngine:(NSMutableArray*)_ReceivedResults;
 

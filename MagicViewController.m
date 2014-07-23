@@ -51,6 +51,7 @@
 @synthesize mPullToRefreshView;
 @synthesize mEmptyStateView;
 @synthesize mLoadingView;
+@synthesize mIsLoaded;
 
 
 

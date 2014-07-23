@@ -41,7 +41,7 @@
 @synthesize mMagicModelDelegate;
 @synthesize mRequestCallDeltaTime;
 @synthesize mRequestKey;
-
+@synthesize mIsPagingDisabled;
 
 
 #pragma mark -
@@ -178,10 +178,10 @@
     
     [self.mResults addObjectsFromArray:_ReceivedResults];
     
+    [self updatePagingEngine:_ReceivedResults];
             
     [mMagicModelDelegate magicModelResultsReceived:self];
     
-    [self updatePagingEngine:_ReceivedResults];
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:self.mRequestKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -194,10 +194,12 @@
 {
     if ([_ReceivedResults count] < [self.mPerPage intValue])
     {
+        self.mIsPagingEnded = YES;
         [self.mMagicModelDelegate magicModelDisablePaging:self];
     }
     else
     {
+        self.mIsPagingEnded = NO;
         [self.mMagicModelDelegate magicModelEnablePaging:self];
     }
 }
@@ -218,6 +220,21 @@
 }
 
 
+- (void)setMIsPagingDisabled:(BOOL)_mIsPagingDisabled
+{
+    mIsPagingDisabled = _mIsPagingDisabled;
+    
+    if (mIsPagingDisabled)
+    {
+        [self.mMagicModelDelegate magicModelDisablePaging:self];
+    }
+    else
+    {
+        [self.mMagicModelDelegate magicModelEnablePaging:self];
+    }
+}
+
+
 
 #pragma mark -
 #pragma mark To Be Overloaded Methods
@@ -225,6 +242,11 @@
 
 
 - (void)sendRequest
+{
+}
+
+
+- (void)sortResults
 {
 }
 
