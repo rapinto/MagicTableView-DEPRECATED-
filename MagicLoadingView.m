@@ -31,4 +31,56 @@
 
 
 
+#pragma mark -
+#pragma mark Object Life Cycle Methods
+
+
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self)
+    {
+        [self startAnim];
+    }
+    
+    return self;
+}
+
+
+- (void)dealloc
+{
+    [_mImageVIew release];
+    [super dealloc];
+}
+
+
+
+#pragma mark -
+#pragma mark Data Mangement Methods Methods
+
+
+
+- (void)startAnim
+{
+    _mImageVIew.animationImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"loading_01.png"],
+                                   [UIImage imageNamed:@"loading_02.png"],
+                                   [UIImage imageNamed:@"loading_03.png"],
+                                   [UIImage imageNamed:@"loading_04.png"],
+                                   [UIImage imageNamed:@"loading_05.png"],
+                                   [UIImage imageNamed:@"loading_06.png"],
+                                   [UIImage imageNamed:@"loading_07.png"],
+                                   [UIImage imageNamed:@"loading_08.png"],nil];
+    _mImageVIew.animationDuration = 1;
+    [_mImageVIew startAnimating];
+}
+
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [self startAnim];
+}
+
+
 @end

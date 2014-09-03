@@ -42,15 +42,16 @@ typedef enum{
 @interface MagicPullToRefreshView : UIView <UITableViewDelegate>
 
 
+@property (retain, nonatomic) IBOutlet UIImageView *mImageView;
 
 @property (nonatomic, assign) NSObject <MagicPullToRefreshDelegate>* mDelegate;
-@property (retain, nonatomic) IBOutlet CALayer *mImageView;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *mActivityIndicator;
 @property (retain, nonatomic) IBOutlet UILabel *mLabel;
 @property (nonatomic) PullToRefreshState mState;
 
 
-- (void)initMagicPullToRefreshView;
 - (void)magicModelResultsReceived:(MagicModel*)_MagicModel forScrollView:(UIScrollView*)_ScrollView;
+- (void)initMagicPullToRefreshView;
+
 
 @end

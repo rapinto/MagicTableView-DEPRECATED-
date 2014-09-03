@@ -38,6 +38,7 @@
 
 
 - (BOOL)isLoadingMagicTableView:(MagicTableView*)_MagicTableView;
+- (BOOL)isPagingEnded:(MagicTableView*)_MagicTableView;
 - (int)loadingMagicTableView:(MagicTableView*)_MagicTableView;
 - (void)magicTableViewDidTriggerPaging:(MagicTableView*)_MagicTableView;
 

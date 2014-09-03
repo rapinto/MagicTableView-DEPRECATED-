@@ -27,6 +27,7 @@
 
 #import "MagicTableView.h"
 #import "MagicPullToRefreshView.h"
+#import "MagicModel.h"
 
 
 
@@ -148,14 +149,18 @@
 
 - (void)stopLoadingTableVIewPagingFooter
 {
-    [self.mPagingFooterView stopLoadingForMagicTableView:self];
+    if ([self.mMagicTableViewDataSource isPagingEnded:self])
+    {
+        [self.mPagingFooterView stopLoadingForMagicTableView:self];
+    }
 }
 
 
 - (void)updateEmptyStateView
 {
-    
-    if ([self isTableViewEmpty] && [self.mMagicTableViewDataSource loadingMagicTableView:self] == 1 /*(kMagicTableViewLoadingType_Init)*/)
+    if ([self isTableViewEmpty] && ([self.mMagicTableViewDataSource loadingMagicTableView:self] == kMagicTableViewLoadingType_Init ||
+                                    [self.mMagicTableViewDataSource loadingMagicTableView:self] == kMagicTableViewLoadingType_PullToRefresh
+                                    ))
     {
         self.mEmptyStateView = [self.mMagicTableViewDelegate MagicTableViewEmptyStateView:self];
         
@@ -175,7 +180,16 @@
     {
         self.mLoadingView = [self.mMagicTableViewDelegate MagicTableViewLoadingView:self];
         
-        [self.superview insertSubview:self.mLoadingView aboveSubview:self];
+        //[self.superview insertSubview:self.mLoadingView aboveSubview:self];
+        [self addSubview:self.mLoadingView];
+        [self setNeedsDisplay];
+        [self setNeedsLayout];
+        [self.mLoadingView setNeedsLayout];
+        [self.mLoadingView setNeedsDisplay];
+    }
+    else
+    {
+        HNLog(@"! EMPTY");
     }
 }
 
@@ -200,7 +214,6 @@
     if (self.mPagingFooterView)
     {
         [self.mPagingFooterView stopLoadingForMagicTableView:self];
-        self.tableFooterView = nil;
     }
 }
 
@@ -209,11 +222,9 @@
 {
     self.mPagingDisabled = NO;
     
-    if (!self.tableFooterView)
-    {
-        self.mPagingFooterView = [self.mMagicTableViewDelegate MagicTableViewPagingFooter:self];
-        self.tableFooterView = self.mPagingFooterView;
-    }
+    self.mPagingFooterView = [self.mMagicTableViewDelegate MagicTableViewPagingFooter:self];
+    [self.mPagingFooterView startLoadingForMagicTableView:self];
+    self.tableFooterView = self.mPagingFooterView;
 }
 
 
@@ -234,7 +245,22 @@
 
 - (void)magicModelDisplayLoadingView:(MagicModel*)_magicModel
 {
-    [self displayLoadingView];
+    HNLog(@"");
+    if (_magicModel.mLoadingType == kMagicTableViewLoadingType_Init)
+    {
+        HNLog(@"displayLoadingView");
+        [self displayLoadingView];
+    }
+    
+    HNLog(@"1");
+    if (_magicModel.mLoadingType == kMagicTableViewLoadingType_Init ||
+        _magicModel.mLoadingType == kMagicTableViewLoadingType_PullToRefresh)
+    {
+        HNLog(@"2");
+        self.tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.tableFooterView.frame.size.height)] autorelease];
+    }
+    HNLog(@"3");
+    
     [self.mEmptyStateView removeFromSuperview];
     self.mEmptyStateView = nil;
 }

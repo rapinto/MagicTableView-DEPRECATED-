@@ -29,4 +29,8 @@
 
 @interface MagicLoadingView : UIView
 
+
+@property (retain, nonatomic) IBOutlet UIImageView *mImageVIew;
+
+
 @end

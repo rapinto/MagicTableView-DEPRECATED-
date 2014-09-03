@@ -186,6 +186,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:self.mRequestKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    
     [self requestFinish];
 }
 
@@ -266,6 +267,12 @@
 - (BOOL)isLoadingMagicTableView:(MagicTableView*)_MagicTableView
 {
     return self.mIsLoading;
+}
+
+
+- (BOOL)isPagingEnded:(MagicTableView*)_MagicTableView
+{
+    return self.mIsPagingEnded;
 }
 
 

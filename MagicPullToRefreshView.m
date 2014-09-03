@@ -41,7 +41,6 @@
 
 @synthesize mState;
 @synthesize mLabel;
-@synthesize mImageView;
 @synthesize mActivityIndicator;
 @synthesize mDelegate;
 
@@ -50,9 +49,9 @@
 
 - (void)dealloc
 {
-    [mImageView release];
     [mActivityIndicator release];
     [mLabel release];
+    [_mImageView release];
     [super dealloc];
 }
 
@@ -65,20 +64,6 @@
 
 - (void)initMagicPullToRefreshView
 {
-    self.mImageView = [CALayer layer];
-    self.mImageView.frame = CGRectMake(75.0f, self.frame.size.height / 2 - 8, 12, 16);
-    self.mImageView.contentsGravity = kCAGravityResizeAspect;
-    self.mImageView.contents = (id)[UIImage imageNamed:@"refresh_down.png"].CGImage;
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-        self.mImageView.contentsScale = [[UIScreen mainScreen] scale];
-    }
-#endif
-    
-    [[self layer] addSublayer:self.mImageView];
-    
-    [self setState:PullToRefreshNormal];
 }
 
 
@@ -125,40 +110,49 @@
 - (void)updateViewForPullingState
 {
     mActivityIndicator.hidden = YES;
+    self.mImageView.hidden = NO;
     mLabel.text = NSLocalizedString(@"Stream.ReleaseToRefresh", @"");
-    [CATransaction begin];
-    [CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-    mImageView.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
-    [CATransaction commit];
+    
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^
+    {
+        [self.mImageView setTransform:CGAffineTransformRotate(CGAffineTransformIdentity, (M_PI / 180.0) * 180.0f)];
+    }
+                     completion:^(BOOL finished)
+    {}];
 }
 
 
 - (void)updateViewForNormalState
 {
     mActivityIndicator.hidden = YES;
-    if (mState == PullToRefreshPulling) {
-        [CATransaction begin];
-        [CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-        mImageView.transform = CATransform3DIdentity;
-        [CATransaction commit];
+    self.mImageView.hidden = NO;
+    if (mState == PullToRefreshPulling)
+    {
+        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^
+         {
+             [self.mImageView setTransform:CGAffineTransformRotate(CGAffineTransformIdentity, 0)];
+         }
+                         completion:^(BOOL finished)
+         {}];
     }
     
     mLabel.text = NSLocalizedString(@"Stream.PullDownToRefresh", @"");
-    [mActivityIndicator stopAnimating];
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    mImageView.hidden = NO;
-    mImageView.transform = CATransform3DIdentity;
-    [CATransaction commit];
+    
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^
+     {
+         [self.mImageView setTransform:CGAffineTransformRotate(CGAffineTransformIdentity, 0)];
+     }
+                     completion:^(BOOL finished)
+     {}];
 }
 
 
 - (void)updateViewForRefreshState
 {
-    mImageView.hidden = YES;
     mLabel.text = NSLocalizedString(@"Stream.Loading", @"");
     mActivityIndicator.hidden = NO;
     [self.mActivityIndicator startAnimating];
+    self.mImageView.hidden = YES;
 }
 
 
@@ -169,13 +163,14 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView*)_ScrollView
-{
+{    
     if (_ScrollView.contentOffset.y < 0)
     {
         self.frame = CGRectMake(self.frame.origin.x,
                                 self.frame.origin.y,
                                 self.frame.size.width,
                                 -_ScrollView.contentOffset.y);
+        HNLogRect(self.frame);
         self.hidden = NO;
         
         if (_ScrollView.isDragging)

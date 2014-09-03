@@ -37,6 +37,7 @@ typedef enum {
     kMagicTableViewLoadingType_Init,
     kMagicTableViewLoadingType_PullToRefresh,
     kMagicTableViewLoadingType_Paging,
+    kMagicTableViewLoadingType_ManualPaging,
 }MagicTableViewLoadingType;
 
 
