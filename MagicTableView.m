@@ -70,9 +70,69 @@
 {
     [super reloadData];
     
+    HNLog(@"TA SOEUR");
     if (![mMagicTableViewDataSource isLoadingMagicTableView:self])
     {
         [self updateEmptyStateView];
+    }
+}
+
+
+- (void)updateLoaders
+{
+    MagicTableViewLoadingType lCurrentLoadingType = [mMagicTableViewDataSource loadingMagicTableView:self];
+    BOOL lIsEmpty = [self isTableViewEmpty];
+    
+    [self updateEmptyStateView];
+    switch (lCurrentLoadingType)
+    {
+        case kMagicTableViewLoadingType_NotLoading:
+        {
+            if (lIsEmpty)
+            {
+                [self displayEmptyStateView];
+            }
+            else
+            {
+                [self hideEmptyStateView];
+            }
+            
+            [self hideLoadingView];
+            [self.mPagingFooterView stopLoadingForMagicTableView:self];
+            break;
+        }
+        case kMagicTableViewLoadingType_Init:
+        {
+            [self hideEmptyStateView];
+            [self displayLoadingView];
+            [self.mPagingFooterView stopLoadingForMagicTableView:self];
+            
+            break;
+        }
+        case kMagicTableViewLoadingType_PullToRefresh:
+        {
+            [self hideEmptyStateView];
+            [self displayLoadingView];
+            [self.mPagingFooterView stopLoadingForMagicTableView:self];
+            
+            break;
+        }
+        case kMagicTableViewLoadingType_Paging:
+        {
+            [self hideEmptyStateView];
+            [self hideLoadingView];
+            [self.mPagingFooterView startLoadingForMagicTableView:self];
+            break;
+        }
+        case kMagicTableViewLoadingType_ManualPaging:
+        {
+            [self hideEmptyStateView];
+            [self hideLoadingView];
+            [self.mPagingFooterView startLoadingForMagicTableView:self];
+            break;
+        }
+        default:
+            break;
     }
 }
 
@@ -149,7 +209,7 @@
 
 - (void)stopLoadingTableVIewPagingFooter
 {
-    if ([self.mMagicTableViewDataSource isPagingEnded:self])
+    if (self.mMagicTableViewDataSource && [self.mMagicTableViewDataSource isPagingEnded:self])
     {
         [self.mPagingFooterView stopLoadingForMagicTableView:self];
     }
@@ -158,39 +218,54 @@
 
 - (void)updateEmptyStateView
 {
-    if ([self isTableViewEmpty] && ([self.mMagicTableViewDataSource loadingMagicTableView:self] == kMagicTableViewLoadingType_Init ||
-                                    [self.mMagicTableViewDataSource loadingMagicTableView:self] == kMagicTableViewLoadingType_PullToRefresh
-                                    ))
+    if ([self isTableViewEmpty])
     {
-        self.mEmptyStateView = [self.mMagicTableViewDelegate MagicTableViewEmptyStateView:self];
-        
-        [self addSubview:self.mEmptyStateView];
+        [self displayEmptyStateView];
     }
     else
     {
-        [self.mEmptyStateView removeFromSuperview];
-        self.mEmptyStateView = nil;
+        [self hideEmptyStateView];
+    }
+}
+
+
+- (void)displayEmptyStateView
+{
+    self.mEmptyStateView = [self.mMagicTableViewDelegate MagicTableViewEmptyStateView:self];
+    
+    [self addSubview:self.mEmptyStateView];
+}
+
+
+- (void)hideEmptyStateView
+{
+    [self.mEmptyStateView removeFromSuperview];
+    self.mEmptyStateView = nil;
+}
+
+
+- (void)tryToDisplayLoadingView
+{
+    if ([self isTableViewEmpty])
+    {
+        [self displayLoadingView];
+    }
+    else
+    {
+        HNLog(@"! EMPTY");
     }
 }
 
 
 - (void)displayLoadingView
 {
-    if ([self isTableViewEmpty])
-    {
-        self.mLoadingView = [self.mMagicTableViewDelegate MagicTableViewLoadingView:self];
-        
-        //[self.superview insertSubview:self.mLoadingView aboveSubview:self];
-        [self addSubview:self.mLoadingView];
-        [self setNeedsDisplay];
-        [self setNeedsLayout];
-        [self.mLoadingView setNeedsLayout];
-        [self.mLoadingView setNeedsDisplay];
-    }
-    else
-    {
-        HNLog(@"! EMPTY");
-    }
+    self.mLoadingView = [self.mMagicTableViewDelegate MagicTableViewLoadingView:self];
+
+    [self addSubview:self.mLoadingView];
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
+    [self.mLoadingView setNeedsLayout];
+    [self.mLoadingView setNeedsDisplay];
 }
 
 
@@ -249,7 +324,7 @@
     if (_magicModel.mLoadingType == kMagicTableViewLoadingType_Init)
     {
         HNLog(@"displayLoadingView");
-        [self displayLoadingView];
+        [self tryToDisplayLoadingView];
     }
     
     HNLog(@"1");

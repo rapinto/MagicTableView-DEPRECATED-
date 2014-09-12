@@ -52,6 +52,7 @@
 
 
 - (void)updateEmptyStateView;
+- (void)updateLoaders;
 
 
 @end

@@ -170,7 +170,7 @@
                                 self.frame.origin.y,
                                 self.frame.size.width,
                                 -_ScrollView.contentOffset.y);
-        HNLogRect(self.frame);
+
         self.hidden = NO;
         
         if (_ScrollView.isDragging)
