@@ -52,6 +52,7 @@ typedef enum{
 
 - (void)magicModelResultsReceived:(MagicModel*)_MagicModel forScrollView:(UIScrollView*)_ScrollView;
 - (void)initMagicPullToRefreshView;
+- (void)setState:(PullToRefreshState)_State;
 
 
 @end

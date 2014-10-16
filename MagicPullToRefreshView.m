@@ -28,6 +28,7 @@
 #import "MagicPullToRefreshView.h"
 #import "MagicPullToRefreshDelegate.h"
 #import "MagicModel.h"
+#import "HeaderInsetTableView.h"
 
 
 
@@ -215,6 +216,8 @@
          {
               _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
 		 }completion:^(BOOL finished){}];
+        [((HeaderInsetTableView*)_ScrollView) setHeaderViewInsets:UIEdgeInsetsMake(-kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f)];
+        [_ScrollView setNeedsLayout];
        
         
 		[self setState:PullToRefreshLoading];

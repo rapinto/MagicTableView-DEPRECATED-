@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "HeaderInsetTableView.h"
 #import "MagicTableViewDelegate.h"
 #import "MagicTableViewDataSource.h"
 #import "MagicModelDelegate.h"
@@ -37,7 +38,7 @@
 
 
 
-@interface MagicTableView : UITableView <UITableViewDelegate, MagicModelDelegate>
+@interface MagicTableView : HeaderInsetTableView <UITableViewDelegate, MagicModelDelegate>
 
 
 @property (nonatomic) BOOL mPagingDisabled;

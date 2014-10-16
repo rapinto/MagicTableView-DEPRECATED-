@@ -70,7 +70,6 @@
 {
     [super reloadData];
     
-    HNLog(@"TA SOEUR");
     if (![mMagicTableViewDataSource isLoadingMagicTableView:self])
     {
         [self updateEmptyStateView];
