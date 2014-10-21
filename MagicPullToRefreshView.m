@@ -214,10 +214,10 @@
         
         [UIView transitionWithView:_ScrollView duration:0.5 options:UIViewAnimationOptionCurveLinear animations:^
          {
-              _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
-		 }completion:^(BOOL finished){}];
-        [((HeaderInsetTableView*)_ScrollView) setHeaderViewInsets:UIEdgeInsetsMake(-kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f)];
-        [_ScrollView setNeedsLayout];
+             [((HeaderInsetTableView*)_ScrollView) setHeaderViewInsets:UIEdgeInsetsMake(-kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f)];
+             [_ScrollView setNeedsLayout];
+             _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
+         }completion:^(BOOL finished){}];
        
         
 		[self setState:PullToRefreshLoading];
