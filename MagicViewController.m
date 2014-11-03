@@ -68,6 +68,20 @@
 }
 
 
+-(void)viewDidLayoutSubviews
+{
+    if ([self.mTableView respondsToSelector:@selector(setSeparatorInset:)])
+    {
+        [self.mTableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([self.mTableView respondsToSelector:@selector(setLayoutMargins:)])
+    {
+        [self.mTableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+
 - (void)dealloc
 {
     self.mTableView.delegate = nil;

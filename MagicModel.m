@@ -59,7 +59,7 @@
         self.mPerPage = [NSNumber numberWithInt:kPagingPerPage];
         self.mPage = [NSNumber numberWithInt:1];
         self.mRequestCallDeltaTime = 0;
-        self.mRequestKey = [self description];
+        self.mRequestKey = [NSString stringWithFormat:@"Request_key_%@",[self description]];
     }
     return self;
 }
@@ -233,6 +233,18 @@
     {
         [self.mMagicModelDelegate magicModelEnablePaging:self];
     }
+}
+
+
+- (void)setMRequestKey:(NSString *)_mRequestKey
+{
+    if ([mRequestKey length] > 0)
+    {
+        [mRequestKey release];
+        mRequestKey = nil;
+    }
+    
+    mRequestKey = [[NSString stringWithFormat:@"Magic_Request_Key_%@", _mRequestKey] retain];
 }
 
 
