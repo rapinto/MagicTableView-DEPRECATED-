@@ -60,6 +60,19 @@
 
 
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self)
+    {
+        [self addMagicNotificationsObservers];
+    }
+    
+    return self;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -84,6 +97,7 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.mTableView.delegate = nil;
     self.mTableView.dataSource = nil;
     self.mTableView.mMagicTableViewDataSource = nil;
@@ -106,6 +120,21 @@
 #pragma mark -
 #pragma mark Data Management Methods
 
+
+
+- (void)addMagicNotificationsObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willEnterForground)
+                                                 name:@"UIApplicationWillEnterForegroundNotification"
+                                               object:nil];
+}
+
+
+- (void)willEnterForground
+{
+    [self.mModel setup];
+}
 
 
 - (void)initMagicViewController
