@@ -203,6 +203,11 @@
     {
 		lLoading = [mDelegate isLoadingMagicPullToRefresh:self];
 	}
+    
+    if (!mDelegate)
+    {
+        lLoading = YES;
+    }
 	
 	if (_ScrollView.contentOffset.y <= - kPullToRefreshViewHeight && !lLoading)
 	{

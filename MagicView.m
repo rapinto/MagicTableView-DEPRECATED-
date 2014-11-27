@@ -161,6 +161,10 @@
         if ([aView isKindOfClass:[MagicPullToRefreshView class]])
         {
             self.mPullToRefreshView = (MagicPullToRefreshView*)aView;
+            self.mPullToRefreshView.frame = CGRectMake(0,
+                                                       0,
+                                                       self.frame.size.width,
+                                                       self.frame.size.height);
         }
     }
     [self.mPullToRefreshView initMagicPullToRefreshView];
