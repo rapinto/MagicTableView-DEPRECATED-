@@ -199,7 +199,7 @@
             self.mLoadingView = aView;
         }
     }
-    self.mLoadingView.frame = CGRectMake(0, 0, self.frame.size.width, self.mLoadingView.frame.size.height);
+    self.mLoadingView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, self.mLoadingView.frame.size.height);
 }
 
 
