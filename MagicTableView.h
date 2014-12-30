@@ -54,6 +54,6 @@
 
 - (void)updateEmptyStateView;
 - (void)updateLoaders;
-
+- (void)addEmptyFooterView;
 
 @end
