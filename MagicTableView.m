@@ -178,13 +178,6 @@
 		{
 			if (self.contentSize.height - self.contentOffset.y <= self.frame.size.height)
 			{
-                HNLog(@"self.contentSize.height %f", self.contentSize.height);
-                HNLog(@"self.contentOffset.y %f", self.contentOffset.y);
-                
-                HNLog(@"gauche %f", self.contentSize.height - self.contentOffset.y);
-                HNLog(@"droite %f", self.frame.size.height);
-                
-                
 				if ([mMagicTableViewDataSource respondsToSelector:@selector(isLoadingMagicTableView:)] && ![mMagicTableViewDataSource isLoadingMagicTableView:self])
 				{
 					[mMagicTableViewDataSource magicTableViewDidTriggerPaging:self];
@@ -256,10 +249,6 @@
     {
         [self displayLoadingView];
     }
-    else
-    {
-        HNLog(@"! EMPTY");
-    }
 }
 
 
@@ -326,21 +315,16 @@
 
 - (void)magicModelDisplayLoadingView:(MagicModel*)_magicModel
 {
-    HNLog(@"");
     if (_magicModel.mLoadingType == kMagicTableViewLoadingType_Init)
     {
-        HNLog(@"displayLoadingView");
         [self tryToDisplayLoadingView];
     }
     
-    HNLog(@"1");
     if (_magicModel.mLoadingType == kMagicTableViewLoadingType_Init ||
         _magicModel.mLoadingType == kMagicTableViewLoadingType_PullToRefresh)
     {
-        HNLog(@"2");
         [self addEmptyFooterView];
     }
-    HNLog(@"3");
     
     [self.mEmptyStateView removeFromSuperview];
     self.mEmptyStateView = nil;
