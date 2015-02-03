@@ -41,6 +41,7 @@
 @interface MagicTableView : HeaderInsetTableView <UITableViewDelegate, MagicModelDelegate>
 
 
+
 @property (nonatomic) BOOL mPagingDisabled;
 @property (nonatomic) BOOL mPullToRefreshEnabled;
 @property (nonatomic)float mLastContentOffset;
@@ -50,6 +51,8 @@
 @property (nonatomic, retain) UIView* mEmptyStateView;
 @property (nonatomic, retain) UIView* mLoadingView;
 @property (nonatomic, retain) MagicPullToRefreshView* mPullToRefreshView;
+@property (nonatomic, retain) IBOutlet UIView* mDefaultFooterView;
+
 
 
 - (void)updateEmptyStateView;

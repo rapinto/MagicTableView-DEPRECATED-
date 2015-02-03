@@ -211,6 +211,7 @@
 	
 	if (_ScrollView.contentOffset.y <= - kPullToRefreshViewHeight && !lLoading)
 	{
+        HNLog(@"self hidden %i", self.hidden);
 		if ([mDelegate respondsToSelector:@selector(magicPullToRefreshDidTriggerPullToRefresh:)])
         {
 			[mDelegate magicPullToRefreshDidTriggerPullToRefresh:self];

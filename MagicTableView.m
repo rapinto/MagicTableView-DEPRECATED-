@@ -43,6 +43,7 @@
 @synthesize mPagingFooterView;
 @synthesize mPullToRefreshView;
 @synthesize mLoadingView;
+@synthesize mDefaultFooterView;
 
 
 
@@ -56,6 +57,7 @@
     [mLoadingView release];
     [mPullToRefreshView release];
     [mPagingFooterView release];
+    [mDefaultFooterView release];
     [super dealloc];
 }
 
@@ -284,6 +286,11 @@
     if (self.mPagingFooterView)
     {
         [self.mPagingFooterView stopLoadingForMagicTableView:self];
+    }
+    
+    if (self.mDefaultFooterView)
+    {
+        self.tableFooterView = self.mDefaultFooterView;
     }
 }
 

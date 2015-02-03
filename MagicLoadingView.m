@@ -71,7 +71,9 @@
                                    [UIImage imageNamed:@"loading_05.png"],
                                    [UIImage imageNamed:@"loading_06.png"],
                                    [UIImage imageNamed:@"loading_07.png"],
-                                   [UIImage imageNamed:@"loading_08.png"],nil];
+                                   [UIImage imageNamed:@"loading_08.png"],
+                                   [UIImage imageNamed:@"loading_09.png"],
+                                   [UIImage imageNamed:@"loading_10.png"],nil];
     _mImageVIew.animationDuration = 1;
     [_mImageVIew startAnimating];
 }
