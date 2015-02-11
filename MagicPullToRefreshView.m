@@ -211,7 +211,6 @@
 	
 	if (_ScrollView.contentOffset.y <= - kPullToRefreshViewHeight && !lLoading)
 	{
-        HNLog(@"self hidden %i", self.hidden);
 		if ([mDelegate respondsToSelector:@selector(magicPullToRefreshDidTriggerPullToRefresh:)])
         {
 			[mDelegate magicPullToRefreshDidTriggerPullToRefresh:self];
@@ -222,8 +221,14 @@
          {
              [((HeaderInsetTableView*)_ScrollView) setHeaderViewInsets:UIEdgeInsetsMake(-kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f)];
              [_ScrollView setNeedsLayout];
-             _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
-         }completion:^(BOOL finished){}];
+             _ScrollView.contentInset = UIEdgeInsetsMake(-_ScrollView.contentOffset.y, 0.0f, 0.0f, 0.0f);
+         }completion:^(BOOL finished)
+        {
+            [UIView transitionWithView:_ScrollView duration:0.5 options:UIViewAnimationOptionCurveLinear animations:^
+             {
+                 _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
+             }completion:^(BOOL finished){}];
+         }];
        
         
 		[self setState:PullToRefreshLoading];
