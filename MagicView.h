@@ -40,6 +40,7 @@
 @property (nonatomic, retain) IBOutlet MagicPullToRefreshView* mPullToRefreshView;
 @property (nonatomic, retain) MagicModel* mModel;
 @property (nonatomic) BOOL mIsLoaded;
+@property (nonatomic) BOOL mStopedAutoRefreshWhenReturningFromBackground;
 
 
 - (void)initMagicPullToRefreshView;

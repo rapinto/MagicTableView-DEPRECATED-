@@ -45,6 +45,7 @@
 @synthesize mPullToRefreshView;
 @synthesize mEmptyStateView;
 @synthesize mLoadingView;
+@synthesize mStopedAutoRefreshWhenReturningFromBackground;
 
 
 
@@ -118,7 +119,10 @@
 
 - (void)willEnterForground
 {
-    [self.mModel setup];
+    if (!mStopedAutoRefreshWhenReturningFromBackground)
+    {
+        [self.mModel setup];
+    }
 }
 
 
