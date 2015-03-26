@@ -216,19 +216,23 @@
 			[mDelegate magicPullToRefreshDidTriggerPullToRefresh:self];
 		}
         
-        
-        [UIView transitionWithView:_ScrollView duration:0.5 options:UIViewAnimationOptionCurveLinear animations:^
-         {
-             [((HeaderInsetTableView*)_ScrollView) setHeaderViewInsets:UIEdgeInsetsMake(-kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f)];
-             [_ScrollView setNeedsLayout];
-             _ScrollView.contentInset = UIEdgeInsetsMake(-_ScrollView.contentOffset.y, 0.0f, 0.0f, 0.0f);
-         }completion:^(BOOL finished)
+        dispatch_async(dispatch_get_main_queue(), ^
         {
             [UIView transitionWithView:_ScrollView duration:0.5 options:UIViewAnimationOptionCurveLinear animations:^
              {
-                 _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
-             }completion:^(BOOL finished){}];
-         }];
+                 [((HeaderInsetTableView*)_ScrollView) setHeaderViewInsets:UIEdgeInsetsMake(-kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f)];
+                 [_ScrollView setNeedsLayout];
+                 _ScrollView.contentInset = UIEdgeInsetsMake(-_ScrollView.contentOffset.y, 0.0f, 0.0f, 0.0f);
+             }completion:^(BOOL finished)
+             {
+                 [UIView transitionWithView:_ScrollView duration:0.5 options:UIViewAnimationOptionCurveLinear animations:^
+                  {
+                      _ScrollView.contentInset = UIEdgeInsetsMake(kPullToRefreshViewHeight, 0.0f, 0.0f, 0.0f);
+                  }completion:^(BOOL finished){}];
+             }];
+        });
+        
+        
        
         
 		[self setState:PullToRefreshLoading];
