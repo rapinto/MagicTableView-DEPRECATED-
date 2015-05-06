@@ -166,6 +166,17 @@
 }
 
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    self.mLoadingView.frame = CGRectMake(self.mLoadingView.frame.origin.x,
+                                         self.mLoadingView.frame.origin.y,
+                                         self.frame.size.width,
+                                         self.mLoadingView.frame.size.height);
+}
+
+
 
 #pragma mark -
 #pragma mark UI Table View Delegate Methods
@@ -301,7 +312,10 @@
     
     self.mPagingFooterView = [self.mMagicTableViewDelegate MagicTableViewPagingFooter:self];
     [self.mPagingFooterView startLoadingForMagicTableView:self];
+    
+    CGPoint lOffset = self.contentOffset;
     self.tableFooterView = self.mPagingFooterView;
+    self.contentOffset = lOffset;
 }
 
 

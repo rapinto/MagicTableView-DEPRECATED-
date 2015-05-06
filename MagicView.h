@@ -47,5 +47,8 @@
 - (void)initDefaultLoadingView;
 - (void)initMagicView;
 
+- (void)handleRotationWithNewSize:(CGSize)size;
+
+
 
 @end

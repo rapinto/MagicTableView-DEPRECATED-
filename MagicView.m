@@ -104,6 +104,31 @@
 
 
 #pragma mark -
+#pragma mark Rotation handling Methods
+
+
+
+- (void)handleRotationWithNewSize:(CGSize)size
+{
+    self.mLoadingView.frame = CGRectMake(0,
+                                         self.mLoadingView.frame.origin.y,
+                                         size.width,
+                                         self.mLoadingView.frame.size.height);
+    
+    /*self.mPullToRefreshView.frame = CGRectMake(0,
+                                               self.mPullToRefreshView.frame.origin.y,
+                                               size.width,
+                                               self.mPullToRefreshView.frame.size.height);*/
+    
+    mPagingTableFooterView.frame = CGRectMake(0,
+                                              0,
+                                              size.width,
+                                              mPagingTableFooterView.frame.size.height);
+}
+
+
+
+#pragma mark -
 #pragma mark Data Management Methods
 
 
@@ -203,7 +228,7 @@
             self.mLoadingView = aView;
         }
     }
-    self.mLoadingView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, self.mLoadingView.frame.size.height);
+    self.mLoadingView.frame = CGRectMake(0, 0, self.frame.size.width, self.mLoadingView.frame.size.height);
 }
 
 
