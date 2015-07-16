@@ -36,7 +36,7 @@
 
 - (void)magicModelDisplayLoadingView:(MagicModel*)_magicModel;
 - (void)magicModelEnablePaging:(MagicModel*)_MagicModel;
-- (void)magicModelResultsReceived:(MagicModel*)_MagicModel;
+- (void)magicModelResultsReceived:(MagicModel*)_MagicModel forPage:(NSNumber*)_Page;
 - (void)magicModelDisablePaging:(MagicModel*)_MagicModel;
 
 

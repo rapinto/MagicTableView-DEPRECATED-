@@ -58,6 +58,7 @@ typedef enum {
 
 
 - (void)setup;
+- (void)updatePageAndDispalayLoadingView;
 - (void)prepareRequestSending;
 
 - (void)requestFinish;

@@ -143,7 +143,7 @@
 }
 
 
-- (void)prepareRequestSending
+- (void)updatePageAndDispalayLoadingView
 {
     self.mIsLoading = YES;
     
@@ -157,6 +157,12 @@
     }
     
     [mMagicModelDelegate magicModelDisplayLoadingView:self];
+}
+
+
+- (void)prepareRequestSending
+{
+    [self updatePageAndDispalayLoadingView];
     
     [self sendRequest];
 }
@@ -180,7 +186,7 @@
     
     [self updatePagingEngine:_ReceivedResults];
             
-    [mMagicModelDelegate magicModelResultsReceived:self];
+    [mMagicModelDelegate magicModelResultsReceived:self forPage:self.mPage];
     
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:self.mRequestKey];
@@ -208,7 +214,7 @@
 
 - (void)didReceiveError
 {
-    [mMagicModelDelegate magicModelResultsReceived:self];
+    [mMagicModelDelegate magicModelResultsReceived:self forPage:self.mPage];
     
     [self requestFinish];
 }

@@ -54,9 +54,13 @@
 @property (nonatomic, retain) IBOutlet UIView* mDefaultFooterView;
 
 
-
+- (void)startLoadingTableViewPagingFooter;
 - (void)updateEmptyStateView;
 - (void)updateLoaders;
 - (void)addEmptyFooterView;
+- (void)stopLoadingTableVIewPagingFooter;
+- (BOOL)isTableViewEmpty;
+
+
 
 @end

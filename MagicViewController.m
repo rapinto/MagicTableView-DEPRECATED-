@@ -53,6 +53,7 @@
 @synthesize mLoadingView;
 @synthesize mIsLoaded;
 @synthesize mStopedAutoRefreshWhenReturningFromBackground;
+@synthesize mIsPagingUpSideDown;
 
 
 
@@ -197,6 +198,7 @@
                                                        self.view.frame.size.height);
         }
     }
+    
     [self.mPullToRefreshView initMagicPullToRefreshView];
     
     [self.view insertSubview:self.mPullToRefreshView belowSubview:self.mTableView];
@@ -216,6 +218,7 @@
             self.mPagingTableFooterView = aView;
         }
     }
+    
     mPagingTableFooterView.frame = CGRectMake(0, 0, self.view.frame.size.width, mPagingTableFooterView.frame.size.height);
     
     self.mLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -254,8 +257,19 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    [self.mTableView scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     [self.mPullToRefreshView scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
 }
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if ([self.mTableView respondsToSelector:@selector(scrollViewDidEndDecelerating:)])
+    {
+        [self.mTableView scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
 
 
 #pragma mark -

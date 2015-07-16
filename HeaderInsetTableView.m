@@ -39,11 +39,11 @@
 
 - (void) setHeaderViewInsets:(UIEdgeInsets)_headerViewInsets
 {
-    headerViewInsets = _headerViewInsets;
+    /*  headerViewInsets = _headerViewInsets;
     
     shouldManuallyLayoutHeaderViews = !UIEdgeInsetsEqualToEdgeInsets(headerViewInsets, UIEdgeInsetsZero);
     
-    [self setNeedsLayout];
+    [self setNeedsLayout];*/
 }
 
 #pragma mark -
@@ -51,7 +51,7 @@
 
 - (void) layoutHeaderViews
 {
-    const NSUInteger numberOfSections = self.numberOfSections;
+  /*  const NSUInteger numberOfSections = self.numberOfSections;
     const UIEdgeInsets contentInset = self.contentInset;
     const CGPoint contentOffset = self.contentOffset;
     
@@ -86,7 +86,7 @@
         }
         
         [sectionView setFrame:sectionViewFrame];
-    }
+    }*/
 }
 
 @end

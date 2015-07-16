@@ -45,10 +45,13 @@
 @property (nonatomic, retain) MagicModel* mModel;
 @property (nonatomic) BOOL mIsLoaded;
 @property (nonatomic) BOOL mStopedAutoRefreshWhenReturningFromBackground;
+@property (nonatomic) BOOL mIsPagingUpSideDown;
+
 
 
 - (void)initMagicPullToRefreshView;
 - (void)initDefaultLoadingView;
+- (void)initMagicViewController;
 
 
 @end

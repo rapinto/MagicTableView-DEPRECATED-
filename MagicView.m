@@ -46,6 +46,7 @@
 @synthesize mEmptyStateView;
 @synthesize mLoadingView;
 @synthesize mStopedAutoRefreshWhenReturningFromBackground;
+@synthesize mIsPagingUpSideDown;
 
 
 
@@ -115,13 +116,9 @@
                                          size.width,
                                          self.mLoadingView.frame.size.height);
     
-    /*self.mPullToRefreshView.frame = CGRectMake(0,
-                                               self.mPullToRefreshView.frame.origin.y,
-                                               size.width,
-                                               self.mPullToRefreshView.frame.size.height);*/
     
-    mPagingTableFooterView.frame = CGRectMake(0,
-                                              0,
+    mPagingTableFooterView.frame = CGRectMake(mPagingTableFooterView.frame.origin.x,
+                                              mPagingTableFooterView.frame.origin.y,
                                               size.width,
                                               mPagingTableFooterView.frame.size.height);
 }
@@ -247,6 +244,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    [self.mTableView scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     [self.mPullToRefreshView scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
 }
 

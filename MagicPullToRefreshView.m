@@ -233,8 +233,6 @@
         });
         
         
-       
-        
 		[self setState:PullToRefreshLoading];
 	}
 }

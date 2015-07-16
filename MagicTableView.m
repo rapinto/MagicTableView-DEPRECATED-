@@ -207,13 +207,19 @@
 }
 
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)_ScrollView willDecelerate:(BOOL)_Decelerate
+{
+    
+}
+
+
 
 #pragma mark -
 #pragma mark View Update Methods
 
 
 
--(void)startLoadingTableViewPagingFooter
+- (void)startLoadingTableViewPagingFooter
 {
     [self.mPagingFooterView startLoadingForMagicTableView:self];
 }
@@ -319,7 +325,7 @@
 }
 
 
-- (void)magicModelResultsReceived:(MagicModel*)_MagicModel
+- (void)magicModelResultsReceived:(MagicModel*)_MagicModel forPage:(NSNumber*)_Page
 {
     [self stopLoadingTableVIewPagingFooter];
     [self.mLoadingView removeFromSuperview];
