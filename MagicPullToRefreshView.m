@@ -71,8 +71,7 @@
 - (void)magicModelResultsReceived:(MagicModel*)_MagicModel forScrollView:(UIScrollView*)_ScrollView
 {
 	[self setState:PullToRefreshNormal];
-    
-    
+  
     [UIView transitionWithView:_ScrollView duration:0.2 options:UIViewAnimationOptionCurveLinear animations:^
      {
          _ScrollView.contentInset = UIEdgeInsetsZero;
@@ -114,6 +113,7 @@
     self.mImageView.hidden = NO;
     mLabel.text = NSLocalizedString(@"Stream.ReleaseToRefresh", @"");
     
+
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^
     {
         [self.mImageView setTransform:CGAffineTransformRotate(CGAffineTransformIdentity, (M_PI / 180.0) * 180.0f)];
@@ -162,9 +162,8 @@
 #pragma mark ScrollView Methods
 
 
-
 - (void)scrollViewDidScroll:(UIScrollView*)_ScrollView
-{    
+{
     if (_ScrollView.contentOffset.y < 0)
     {
         self.frame = CGRectMake(self.frame.origin.x,
@@ -194,7 +193,6 @@
                                 0);
     }
 }
-
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)_ScrollView willDecelerate:(BOOL)_Decelerate
 {

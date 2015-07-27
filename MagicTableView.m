@@ -321,6 +321,7 @@
     
     CGPoint lOffset = self.contentOffset;
     self.tableFooterView = self.mPagingFooterView;
+    
     self.contentOffset = lOffset;
 }
 
